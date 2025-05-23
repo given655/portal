@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "https://backend.play929.com/auth/:path*"
+    }
+  ]
+}

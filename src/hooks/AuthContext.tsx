@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('/auth/verify', { withCredentials: true });
+        const response = await axios.get('https://backend.play929.com/auth/verify', { withCredentials: true });
        
         setIsAuthenticated(!!response.data.valid);
       } catch (e) {
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setError(null);
 
     try {
-      const response = await axios.post('/auth/login', { username, password, mfaToken }, { withCredentials: true });
+      const response = await axios.post('https://backend.play929.com/auth/login', { username, password, mfaToken }, { withCredentials: true });
 
       if (response.data.requiresMfa && !mfaToken) throw new Error('MFA_REQUIRED');
 
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      await axios.post('/auth/logout', {}, { withCredentials: true });
+      await axios.post('https://backend.play929.com/auth/logout', {}, { withCredentials: true });
     } finally {
       setIsAuthenticated(false);
       navigate('/login');
