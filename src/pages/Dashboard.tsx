@@ -85,34 +85,33 @@ const Dashboard = () => {
         <List sx={{ flexGrow: 1, mt: 1 }}>
           {navItems.map((tab) => {
             const isActive = activeTab === tab.key;
-                return (
-      <ListItem
-        key={tab.key}
-        component="div"
-        button
-        onClick={() => setActiveTab(tab.key)}
-        sx={{
-          mx: 1,
-          my: 0.5,
-          borderRadius: 2,
-          transition: 'all 0.2s',
-          color: isActive ? 'white' : 'text.primary',
-          backgroundColor: isActive ? 'primary.main' : 'transparent',
-          borderLeft: isActive ? '5px solid white' : '5px solid transparent',
-          '&:hover': {
-            backgroundColor: isActive ? 'primary.dark' : 'action.hover',
-          },
-          '& .MuiListItemIcon-root': {
-            color: isActive ? 'white' : 'inherit',
-          },
-        }}
-      >
-        <ListItemIcon sx={{ minWidth: 36 }}>
-          {tab.icon}
-        </ListItemIcon>
-        <ListItemText primary={tab.label} />
-      </ListItem>
-
+            return (
+              <ListItem
+                key={tab.key}
+                component="button"
+                disableGutters
+                onClick={() => setActiveTab(tab.key)}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderRadius: 2,
+                  transition: 'all 0.2s',
+                  color: isActive ? 'white' : 'text.primary',
+                  backgroundColor: isActive ? 'primary.main' : 'transparent',
+                  borderLeft: isActive ? '5px solid white' : '5px solid transparent',
+                  '&:hover': {
+                    backgroundColor: isActive ? 'primary.dark' : 'action.hover',
+                  },
+                  '& .MuiListItemIcon-root': {
+                    color: isActive ? 'white' : 'inherit',
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  {tab.icon}
+                </ListItemIcon>
+                <ListItemText primary={tab.label} />
+              </ListItem>
             );
           })}
         </List>

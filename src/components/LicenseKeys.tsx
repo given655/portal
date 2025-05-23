@@ -23,8 +23,11 @@ import {
   CircularProgress,
   Alert,
   Snackbar,
+  ChipProps,
 } from '@mui/material';
 import axios from 'axios';
+
+type LicenseKeyStatus = 'Active' | 'Expired' | 'Revoked';
 
 interface LicenseKey {
   key: string;
@@ -37,7 +40,7 @@ interface LicenseKey {
   bot_type: string;
 }
 
-const statusColor = {
+const statusColor: Record<LicenseKeyStatus, ChipProps['color']> = {
   Active: 'success',
   Expired: 'default',
   Revoked: 'error',
