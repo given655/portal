@@ -63,7 +63,7 @@ const LicenseKeys = () => {
   const fetchExistingKeys = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/keys/get-keys', {
+      const response = await axios.get('https://backend.play929.com/keys/get-keys', {
         withCredentials: true,
       });
       setKeys(response.data.keys);
@@ -77,7 +77,7 @@ const LicenseKeys = () => {
 
   const handleRevoke = async (keyId: string, index: number) => {
     try {
-      await axios.patch(`/keys/revoke/${keyId}`, {}, {
+      await axios.patch(`https://backend.play929.com/keys/revoke/${keyId}`, {}, {
         withCredentials: true,
       });
       setKeys(prev =>
@@ -99,7 +99,7 @@ const LicenseKeys = () => {
 
   const generateKey = async () => {
     try {
-      const response = await axios.get("/keys/generate-license", {
+      const response = await axios.get("https://backend.play929.com/keys/generate-license", {
         params: { expiry: expiryOption },
         withCredentials: true,
       });
