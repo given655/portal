@@ -63,7 +63,7 @@ const LicenseKeys = () => {
   const fetchExistingKeys = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/keys/all', {
+      const response = await axios.get('https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/keys/all', {
         withCredentials: true,
       });
       
@@ -78,7 +78,7 @@ const LicenseKeys = () => {
 
   const handleRevoke = async (keyId: string, index: number) => {
     try {
-      await axios.patch(`http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/keys/revoke?key=${keyId}`, {}, {
+      await axios.patch(`https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/keys/revoke?key=${keyId}`, {}, {
         withCredentials: true,
       });
       setKeys(prev =>
@@ -100,7 +100,7 @@ const LicenseKeys = () => {
 
   const generateKey = async () => {
     try {
-      const response = await axios.get(`http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/keys/generate-key?expiry=${expiryOption}`, {
+      const response = await axios.get(`https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/keys/generate-key?expiry=${expiryOption}`, {
        
         withCredentials: true,
       });

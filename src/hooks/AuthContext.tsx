@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/auth/admin/verify', { withCredentials: true });
+        const response = await axios.get('https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/auth/admin/verify', { withCredentials: true });
        
         setIsAuthenticated(!!response.data.valid);
       } catch (e) {
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setError(null);
 
     try {
-      const response = await axios.post('http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/auth/admin/login', { Email, Password, mfaToken }, { withCredentials: true });
+      const response = await axios.post('https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/auth/admin/login', { Email, Password, mfaToken }, { withCredentials: true });
 
       if (response.data.requiresMfa && !mfaToken) throw new Error('MFA_REQUIRED');
 
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      await axios.post('http://ec2-13-49-145-56.eu-north-1.compute.amazonaws.com/api/auth/admin/logout', {}, { withCredentials: true });
+      await axios.post('https://unreminiscently-noncensorious-malaysia.ngrok-free.dev/api/auth/admin/logout', {}, { withCredentials: true });
     } finally {
       setIsAuthenticated(false);
       navigate('/login');
