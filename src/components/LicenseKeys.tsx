@@ -34,10 +34,10 @@ interface LicenseKey {
   user: string;
   bot: string;
   status: 'Active' | 'Expired' | 'Revoked';
-  issued: string;
-  expiry: string;
-  mentor_id: string;
-  bot_type: string;
+  createdAt: string;
+  expiresAt: string;
+  mentorId: string;
+  botType: string;
 }
 
 const statusColor: Record<LicenseKeyStatus, ChipProps['color']> = {
@@ -63,10 +63,11 @@ const LicenseKeys = () => {
   const fetchExistingKeys = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://backend.play929.com/keys/get-keys', {
+      const response = await axios.get('http://localhost:5276/api/keys/all', {
         withCredentials: true,
       });
-      setKeys(response.data.keys);
+      
+      setKeys(response.data);
     } catch (err) {
       setError('Failed to fetch license keys. Please try again.');
       console.error('Error fetching keys:', err);
@@ -77,7 +78,7 @@ const LicenseKeys = () => {
 
   const handleRevoke = async (keyId: string, index: number) => {
     try {
-      await axios.patch(`https://backend.play929.com/keys/revoke/${keyId}`, {}, {
+      await axios.patch(`http://localhost:5276/api/keys/revoke?key=${keyId}`, {}, {
         withCredentials: true,
       });
       setKeys(prev =>
@@ -99,12 +100,12 @@ const LicenseKeys = () => {
 
   const generateKey = async () => {
     try {
-      const response = await axios.get("https://backend.play929.com/keys/generate-license", {
-        params: { expiry: expiryOption },
+      const response = await axios.get(`http://localhost:5276/api/keys/generate-key?expiry=${expiryOption}`, {
+       
         withCredentials: true,
       });
 
-      setKeys(prev => [...prev, response.data.license_info]);
+      setKeys(prev => [...prev, response.data]);
       setDialogOpen(false);
       setExpiryOption('');
       setSuccess('License key generated successfully');
@@ -189,8 +190,8 @@ const LicenseKeys = () => {
                 filterKeys().map((row, i) => (
                   <TableRow key={row.key} hover>
                     <TableCell sx={{ fontFamily: 'monospace' }}>{row.key}</TableCell>
-                    <TableCell>{row.user || row.mentor_id}</TableCell>
-                    <TableCell>{row.bot || row.bot_type	}</TableCell>
+                    <TableCell>{row.user || row.mentorId}</TableCell>
+                    <TableCell>{row.bot || row.botType	}</TableCell>
                     <TableCell>
                       <Chip
                         label={row.status}
@@ -198,8 +199,8 @@ const LicenseKeys = () => {
                         size="small"
                       />
                     </TableCell>
-                    <TableCell>{formatDate(row.issued)}</TableCell>
-                    <TableCell>{formatDate(row.expiry)}</TableCell>
+                    <TableCell>{formatDate(row.createdAt)}</TableCell>
+                    <TableCell>{formatDate(row.expiresAt)}</TableCell>
                     <TableCell align="right">
                       {row.status !== 'Revoked' && (
                         <Button
